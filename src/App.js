@@ -15,10 +15,43 @@ class App extends React.Component {
       cardRare: '',
       cardTrunfo: false,
       isSaveButtonDisabled: true,
+      cardList: [],
     };
   }
 
-  onSaveButtonClick = () => console.log('oiW');
+  onSaveButtonClick = () => {
+    const {
+      cardName,
+      cardAttr1,
+      cardAttr2,
+      cardAttr3,
+      cardImage,
+      cardDescription,
+      cardRare,
+      cardList,
+    } = this.state;
+
+    const newCard = {
+      cardName,
+      cardAttr1,
+      cardAttr2,
+      cardAttr3,
+      cardImage,
+      cardDescription,
+      cardRare };
+    this.setState((prevState) => ({
+      cardList: [...prevState.cardList, newCard],
+      cardName: '',
+      cardAttr1: 0,
+      cardAttr2: 0,
+      cardAttr3: 0,
+      cardImage: '',
+      cardDescription: '',
+      cardRare: 'normal',
+      cardTrunfo: false,
+      isSaveButtonDisabled: true,
+    }), () => console.log(cardList));
+  };
 
   handleDisableBtn = () => {
     const {
@@ -43,14 +76,9 @@ class App extends React.Component {
     const attr3 = Number(cardAttr3) >= minValues && Number(cardAttr3) <= maxValues;
     const sum = (Number(cardAttr1) + Number(cardAttr2) + Number(cardAttr3)) <= sumValues;
 
-    this.setState({ isSaveButtonDisabled: !(card
-      && description
-      && image
-      && rarity
-      && attr1
-      && attr2
-      && attr3
-      && sum) });
+    const res = card && description && image && rarity && attr1 && attr2 && attr3 && sum;
+
+    this.setState({ isSaveButtonDisabled: !res });
   };
 
   handleChange = ({ target }) => {
