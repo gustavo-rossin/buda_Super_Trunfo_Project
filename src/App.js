@@ -34,20 +34,23 @@ class App extends React.Component {
     const minValues = 0;
     const maxValues = 90;
     const sumValues = 210;
-    // console.log(typeof cardAttr1);
-    const fieldInputs = {
-      name: cardName.length > minValues,
-      description: cardDescription.length > minValues,
-      image: cardImage.length > minValues,
-      rarity: cardRare.length > minValues,
-      attr1: Number(cardAttr1) >= minValues && Number(cardAttr1) <= maxValues,
-      attr2: Number(cardAttr2) >= minValues && Number(cardAttr2) <= maxValues,
-      attr3: Number(cardAttr3) >= minValues && Number(cardAttr3) <= maxValues,
-      sum: Number(cardAttr1) + Number(cardAttr2) + Number(cardAttr3) <= sumValues,
-    };
-    if (fieldInputs) {
-      return this.setState({ isSaveButtonDisabled: true });
-    }
+    const card = cardName.length > minValues;
+    const description = cardDescription.length > minValues;
+    const image = cardImage.length > minValues;
+    const rarity = cardRare.length > minValues;
+    const attr1 = Number(cardAttr1) >= minValues && Number(cardAttr1) <= maxValues;
+    const attr2 = Number(cardAttr2) >= minValues && Number(cardAttr2) <= maxValues;
+    const attr3 = Number(cardAttr3) >= minValues && Number(cardAttr3) <= maxValues;
+    const sum = (Number(cardAttr1) + Number(cardAttr2) + Number(cardAttr3)) <= sumValues;
+
+    this.setState({ isSaveButtonDisabled: !(card
+      && description
+      && image
+      && rarity
+      && attr1
+      && attr2
+      && attr3
+      && sum) });
   };
 
   handleChange = ({ target }) => {
