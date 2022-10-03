@@ -93,6 +93,12 @@ class App extends React.Component {
     }, () => this.handleDisableBtn());
   };
 
+  removeItem = ({ target }) => {
+    const { cardList } = this.state;
+    const newList = cardList.filter((item) => item.cardName !== target.id);
+    this.setState({ cardList: newList });
+  };
+
   render() {
     const {
       cardName,
@@ -141,17 +147,27 @@ class App extends React.Component {
         <section>
           <h1>Cartas Renderizadas</h1>
           {
-            cardList.map((item) => (<Card
-              key={ item.cardName }
-              cardName={ item.cardName }
-              cardAttr1={ item.cardAttr1 }
-              cardAttr2={ item.cardAttr2 }
-              cardAttr3={ item.cardAttr3 }
-              cardImage={ item.cardImage }
-              cardDescription={ item.cardDescription }
-              cardRare={ item.cardRare }
-              cardTrunfo={ item.cardTrunfo }
-            />))
+            cardList.map((item) => (
+              <div key={ item.cardName }>
+                <Card
+                  cardName={ item.cardName }
+                  cardAttr1={ item.cardAttr1 }
+                  cardAttr2={ item.cardAttr2 }
+                  cardAttr3={ item.cardAttr3 }
+                  cardImage={ item.cardImage }
+                  cardDescription={ item.cardDescription }
+                  cardRare={ item.cardRare }
+                  cardTrunfo={ item.cardTrunfo }
+                />
+                <button
+                  type="button"
+                  id={ item.cardName }
+                  onClick={ this.removeItem }
+                >
+                  Excluir
+                </button>
+              </div>
+            ))
           }
 
         </section>
