@@ -113,7 +113,6 @@ class Form extends React.Component {
           </select>
         </label>
         <br />
-
         {
           hasTrunfo
             ? (<p>Você já tem um Super Trunfo em seu baralho</p>)

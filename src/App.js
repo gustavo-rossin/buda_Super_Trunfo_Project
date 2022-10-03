@@ -42,6 +42,7 @@ class App extends React.Component {
       cardDescription,
       cardRare,
       cardTrunfo };
+
     this.setState((prevState) => ({
       cardList: [...prevState.cardList, newCard],
       cardName: '',
@@ -94,9 +95,21 @@ class App extends React.Component {
   };
 
   removeItem = ({ target }) => {
-    const { cardList } = this.state;
+    const { cardList, hasTrunfo } = this.state;
     const newList = cardList.filter((item) => item.cardName !== target.id);
-    this.setState({ cardList: newList });
+    if (hasTrunfo) {
+      this.setState(
+        { cardList: newList,
+          hasTrunfo: false,
+        },
+      );
+    } else {
+      this.setState(
+        { cardList: newList,
+          hasTrunfo: true,
+        },
+      );
+    }
   };
 
   render() {
@@ -161,6 +174,7 @@ class App extends React.Component {
                 />
                 <button
                   type="button"
+                  data-testid="delete-button"
                   id={ item.cardName }
                   onClick={ this.removeItem }
                 >
